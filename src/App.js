@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { Route, Routes } from 'react-router-dom';
+import { Home } from './container/Home/Index';
+import ProductDetail from './container/ProductDetail';
+import HeaderMenu from './components/Header/Index';
+import CartPage from './container/CartPage';
+import { useState } from 'react';
+
 function App() {
+
+  // eslint-disable-next-line
+  const [items, setItems] = useState([])
+  const [countCart, setCountCart] = useState(0)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <HeaderMenu countCart={countCart} />
+      <Routes>
+        <Route path='detail/:id' element={<ProductDetail setCountCart={setCountCart}/>}></Route>
+        <Route path='cart' element={<CartPage setCountCart={setCountCart}/>}></Route>
+        <Route path='/' element={<Home />}></Route>
+      </Routes>
+    </>
   );
 }
 
